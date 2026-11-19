@@ -136,13 +136,15 @@ def icon_scales(draw, x, y, s):
                  fill=(246, 196, 64), outline=INK, width=1)
     for px in (0.22, 0.78):
         pxc = x + s * px
-        draw.line([pxc, y + s * 0.24, pxc, y + s * 0.52], fill=INK, width=2)
-        draw.line([pxc - 16, y + s * 0.34, pxc, y + s * 0.52], fill=INK,
+        draw.line([pxc, y + s * 0.24, pxc, y + s * 0.46], fill=INK, width=2)
+        draw.line([pxc - 15, y + s * 0.30, pxc, y + s * 0.46], fill=INK,
                   width=2)
-        draw.line([pxc + 16, y + s * 0.34, pxc, y + s * 0.52], fill=INK,
+        draw.line([pxc + 15, y + s * 0.30, pxc, y + s * 0.46], fill=INK,
                   width=2)
-        draw.arc([pxc - 18, y + s * 0.50, pxc + 18, y + s * 0.78],
-                 start=0, end=180, fill=(125, 60, 152), width=5)
+        draw.pieslice([pxc - 18, y + s * 0.44, pxc + 18, y + s * 0.80],
+                      start=0, end=180, fill=(125, 60, 152))
+        draw.line([pxc - 18, y + s * 0.62, pxc + 18, y + s * 0.62],
+                  fill=(125, 60, 152), width=3)
 
 
 def icon_controller(draw, x, y, s):

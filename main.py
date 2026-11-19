@@ -12,11 +12,27 @@ import os
 import shutil
 from pathlib import Path
 
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+
+
+def verify_png(path):
+    """Refuse to hand the grader anything that is not a whole PNG file.
+
+    A truncated or misnamed image would fail the gate silently; checking
+    the eight-byte PNG signature here makes a broken build fail loudly
+    instead, before any bytes reach the output directory.
+    """
+    with path.open("rb") as handle:
+        header = handle.read(len(PNG_SIGNATURE))
+    if header != PNG_SIGNATURE:
+        raise ValueError(f"poster image is not a PNG file: {path}")
+
 
 def main():
     source = Path(__file__).resolve().parent / "entry.png"
     if not source.is_file():
         raise FileNotFoundError(f"missing poster image: {source}")
+    verify_png(source)
     out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
     out_dir.mkdir(parents=True, exist_ok=True)
     target = out_dir / "entry.png"
